@@ -2,14 +2,14 @@ Router.configure({
   layoutTemplate: 'MasterLayout',
   loadingTemplate: 'Loading',
   notFoundTemplate: 'NotFound'
-})
+});
 
 
 Router.route('/', {
   name: 'home',
   controller: 'HomeController',
   where: 'client'
-})
+});
 
 
 Router.route('/sign', {
@@ -17,7 +17,7 @@ Router.route('/sign', {
   template: 'Sign',
   controller: 'SignController',
   where: 'client'
-})
+});
 
 
 Router.route("/universities/:_id", {
@@ -25,7 +25,15 @@ Router.route("/universities/:_id", {
     template:"UniversityDashboard",
     controller: 'UniversityDashboardController',
     where: 'client'
-})
+});
+
+
+Router.route("/departments/:_id", {
+    name:"departments.dashboard",
+    template:"DepartmentDashboard",
+    controller: 'DepartmentDashboardController',
+    where: 'client'
+});
 
 
 Router.route("/issues", {
@@ -33,4 +41,4 @@ Router.route("/issues", {
     template:"IssuesList",
     controller: 'IssuesListController',
     where: 'client'
-})
+});

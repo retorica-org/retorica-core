@@ -1,4 +1,4 @@
-Universities = new Mongo.Collection('universities')
+Universities = new Mongo.Collection('universities');
 
 Schemas.universities = new SimpleSchema({
     name: {
@@ -25,10 +25,6 @@ Schemas.universities = new SimpleSchema({
         type: [Meteor.users],
         optional: true
     },
-    departments: {
-        type: [Schemas.departments],
-        optional: true
-    },
     enrollable: {
         type: Boolean,
         optional: true,
@@ -43,33 +39,33 @@ Schemas.universities = new SimpleSchema({
         type: [String],
         optional: true,
         label: 'Accept emails from the these domains',
-    },
-    createdBy: SchemaCommons.ownerField
-})
+    }
+});
 
 Universities.attachSchema(Schemas.universities)
 Universities.attachSchema(
-    new UpdateHistory(Universities, ['name', 'lead', 'aliases']).toSchema())
+    new UpdateHistory(Universities, ['name', 'lead', 'aliases']).toSchema());
+
 
 UniversitiesIndex = new EasySearch.Index({
     collection: Universities,
     fields: ['name', 'aliases'],
     engine: new EasySearch.Minimongo()
-})
+});
 
 
 if (Meteor.isServer) {
     Universities.allow({
         insert: function (userId, doc) {
-            return !!userId
+            return !!userId;
         },
 
         update: function (userId, doc, fieldNames, modifier) {
-            return !!userId
+            return !!userId;
         },
 
         remove: function (userId, doc) {
-            return false
+            return false;
         }
-    })
+    });
 }

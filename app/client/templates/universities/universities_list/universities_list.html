@@ -1,0 +1,53 @@
+<template name="UniversitiesList">
+    <div class="universities-list container">
+        {{#EasySearch.IfInputEmpty index=universitiesIndex}}
+            <p class="flow-text">
+                Hello, there!
+            </p>
+            <p class="flow-text">
+                In Retorica, we take your privacy very seriously.
+
+                To prevent intruders from accessing info that doesn't concern
+                them or disturbing other people's data, we need to know from
+                which institution do you belong.
+            </p>
+            <p class="flow-text">
+                Use the search above to locate or register your university.
+            </p>
+        {{else}}
+            <div class="row">
+                {{#EasySearch.Each index=universitiesIndex}}
+                <div class="col s12 m6 l4">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">{{name}}</span>
+                            <div>
+                                {{#if aliases}}
+                                {{#each alias in aliases}}
+                                <div class="chip">{{alias}}</div>
+                                {{/each}}
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{pathFor 'universities.dashboard' _id=_id}}"
+                            >More</a>
+                        </div>
+                    </div>
+                </div>
+                {{/EasySearch.Each}}
+            </div>
+
+            {{> EasySearch.LoadMore index=universitiesIndex attributes=btnLoadMoreAttributes}}
+            {{#EasySearch.IfNoResults index=universitiesIndex}}
+            <p class="flow-text">
+                Sorry, we couldn't find your university.<br>
+                Would you like to add it?
+                Just make sure you typed the right
+                name and press <strong>enter</strong>!
+            </p>
+            {{/EasySearch.IfNoResults}}
+
+        {{/EasySearch.IfInputEmpty}}
+    </div>
+</template>

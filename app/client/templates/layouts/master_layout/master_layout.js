@@ -2,15 +2,15 @@ Template.MasterLayout.events({
     'keyup .text-search': (event) => {
         event.preventDefault();
 
-        if (Demosthenes.search) {
-            Demosthenes.search.onQueryChange(event);
+        if (Retorica.search) {
+            Retorica.search.onQueryChange(event);
         }
     },
     'submit .search': (event) => {
         event.preventDefault();
 
-        if (Demosthenes.search) {
-            Demosthenes.search.onSubmit(event);
+        if (Retorica.search) {
+            Retorica.search.onSubmit(event);
         }
     },
     'click .button-logout': (event) => {

@@ -3,9 +3,7 @@
         {{#if editing}}
             {{> UniversityEdit}}
         {{else}}
-            <h2>
-                {{name}}
-            </h2>
+            <h2>{{name}}</h2>
 
             {{#if lead}}
                 <p class="flow-text">{{lead}}</p>
@@ -15,32 +13,7 @@
             <div class="chip">{{alias}}</div>
             {{/each}}
 
-            <div class="section">
-                <h4>Departments</h4>
-                {{#if not departments}}
-                    <span class="grey-text text-darken-2">
-                        None registered yet.
-                    </span>
-                {{/if}}
-
-                {{#if not departmentsSearchFound}}
-                <p class="flow-text">
-                    Sorry, we couldn't find your university.<br>
-                    Would you like to add it?
-                    Just make sure you typed the right
-                    name and press <strong>enter</strong>!
-                </p>
-                {{/if}}
-                <div class="row">
-                    {{#each d in departmentsSearch}}
-                        <div class="col s12 m6 l4">
-                            <div class="card-panel teal white-text">
-                                {{d.name}}
-                            </div>
-                        </div>
-                    {{/each}}
-                </div>
-            </div>
+            {{> DepartmentsList}}
 
             {{#if not enrollable}}
             <div class="section">

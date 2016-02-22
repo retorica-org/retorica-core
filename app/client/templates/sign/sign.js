@@ -23,12 +23,9 @@ Template.Sign.events({
             return toastr.warning('Passwords differ!');
         }
 
-        var result = Accounts.createUser(
+        Accounts.createUser(
             {email: email, password: password},
-            function (error) { if (error) toast.error(error); }
-        )
-
-        console.log(result)
+            new ResponseDisplayer().asRequestCallback);
     },
     'submit .form-sign-logging': function (event) {
         event.preventDefault()
@@ -36,18 +33,12 @@ Template.Sign.events({
         var email    = Session.get('sign.email'),
             password = event.target.password.value;
 
-        Meteor.loginWithPassword(email, password, function (error) {
-            if (error) {
-                toastr.error(error);
-            }
-            else {
-                Session.get('sign.signingMode', false);
-            }
-        });
+        Meteor.loginWithPassword(email, password,
+            new ResponseDisplayer().asRequestCallback);
     },
     'click .btn-signing-back': function (event) {
         event.preventDefault();
-        Session.set('sign.signingMode', false)
+        Session.set('sign.signingMode', false);
     }
 });
 
@@ -79,4 +70,5 @@ Template.Sign.onRendered(function () {
 });
 
 Template.Sign.onDestroyed(function () {
+    delete Session.keys['sign.signingMode']
 });

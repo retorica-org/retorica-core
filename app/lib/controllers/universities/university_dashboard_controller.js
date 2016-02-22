@@ -1,10 +1,11 @@
 UniversityDashboardController = RouteController.extend({
 
   subscriptions: function() {
-      this.subscribe('university', this.params._id).wait();
+      this.subscribe('university.departments', this.params._id);
   },
 
   waitOn: function () {
+      return this.subscribe('university', this.params._id);
   },
 
   data: function () {
@@ -21,7 +22,7 @@ UniversityDashboardController = RouteController.extend({
   },
   onBeforeAction: function () {
       if (!Meteor.userId()) {
-          Router.go('sign')
+          Router.go('sign');
       } else {
           this.next();
       }
