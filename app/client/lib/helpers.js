@@ -7,35 +7,50 @@ Retorica = {
 
 /// FormUpdatesHelper
 ///
-/// Helper for automatically tracking updates made in forms.
-FormUpdatesHelper = function (model, fields) {
-    this.model = model;
-    this.fields = fields;
-    this.forms = [];
+/// Automatic tracking of updates made in forms.
+FormUpdatesHelper = function (options) {
+    var self = this;
+
+    self.forms = [];
 
     /// lookIn
     ///
     /// form: where we should look for the updates.
     /// return: this
-    this.lookIn = function (form) {
-        this.forms.push(form);
-        return this;
+    self.lookIn = function (form) {
+        self.forms.push(form);
+        return self;
     };
 
     /// updates
     ///
     /// return: dict {field:value} where `field` is a filed
     /// updated and `value` is the new value.
-    this.updates = function () {
+    self.updates = function () {
         var updates = {};
 
-        for (var field of this.fields) {
-            for (var form of this.forms) {
+        for (var field of options.fields) {
+            for (var form of self.forms) {
                 if (field in form) {
-                    if (form[field].value != this.model[field]) {
-                        updates[field] = form[field].value;
+                    var value = form[field].value,
+                        old   = options.model[field];
+
+                    if (!Array.isArray(value)) {
+                        // Shallow comparison.
+                        if (value != old)
+                            updates[field] = value;
+
+                    } else if (!Array.isArray(old)
+                        || value.length != old.length
+                        || !value.every((el, i) => el === old[i])) {
+                            // Value is an array. It's indeed different than
+                            // old if old is not an array, if their size
+                            // differ or if some value differ.
+                            updates[field] = value;
                     }
 
+                    // Breaks here, preventing overriding of found value
+                    // by others found in following forms.
                     break;
                 }
             }
@@ -49,25 +64,35 @@ FormUpdatesHelper = function (model, fields) {
 ///
 /// Helper for responses coming from calls such as
 /// Collection.insert() and Collection.update().
-ResponseDisplayer = function (error) {
+ResponseDisplayer = function (options) {
     var self = this;
 
-    self.error = error;
+    options = options || {};
 
-    this.asRequestCallback = function (error, docs) {
-        self.error = error;
-        self.successOrToastErrors();
+    if (!'toasting' in options)
+        options.toasting = true;
+    if (!'toastOnSuccess' in options)
+        options.toastOnSuccess = true;
+
+    self.hasErrors = function () {
+        return options.error;
     };
 
-    this.successOrToastErrors = function (message) {
-        message = message || 'Done!';
-
-        if (self.error) {
-            console.log(self.error);
-            toastr.error(self.error);
-        } else {
-            toastr.success(message);
+    self.process = function (error, count) {
+        if (error !== undefined) {
+            options.error = error;
         }
+
+        if (options.toasting) {
+            if (options.error) {
+                toastr.error(options.error);
+            } else if (options.toastOnSuccess) {
+                toastr.success(options.successMessage || 'Done!');
+            }
+        }
+
+        // Always write errors on console.
+        if (options.error) console.log(options.error);
     };
 };
 
@@ -78,13 +103,10 @@ ResponseDisplayer = function (error) {
 SearchHelper = function (options) {
     var self = this;
 
-    self.collection  = options.collection;
-    self.searchIndex = options.searchIndex;
-    self.timeout     = options.timeout !== undefined ? options.timeout : 200;
-    self.createIfNotFound = !!options.createIfNotFound;
-    self.redirectTo  = options.redirectTo;
-    self.newDocument = options.newDocument;
-    self.handler     = undefined;
+    self.handler = undefined;
+
+    if (!'timeout' in options)
+        options.timeout = 200;
 
     Session.set('master.search.placeholder', options.searchPlaceholder);
 
@@ -94,30 +116,30 @@ SearchHelper = function (options) {
         var query = event.target.value;
 
         self.handler = setTimeout(
-            () => self.searchIndex.getComponentMethods().search(query),
-            self.timeout);
-    }
+            () => options.searchIndex.getComponentMethods().search(query),
+            options.timeout);
+    };
 
     self.onSubmit = function (event) {
         var query  = event.target.search.value;
-        if (!query || !self.searchIndex) return;
+        if (!query || !options.searchIndex) return;
 
-        var exists = self.searchIndex.search(query).count();
+        var exists = options.searchIndex.search(query).count();
 
-        if (self.createIfNotFound && query && !exists) {
-            var newDoc = self.newDocument || {};
+        if (options.createIfNotFound && query && !exists) {
+            var newDoc = options.newDocument || {};
             newDoc.name = query;
 
-            var _id = self.collection.insert(newDoc,
-                new ResponseDisplayer().asRequestCallback);
+            var _id = options.collection.insert(newDoc,
+                new ResponseDisplayer().process);
 
             event.target.search.value = '';
-            Router.go(self.redirectTo, {_id: _id});
+            Router.go(options.redirectTo, {_id: _id});
         }
-    },
+    };
 
     self.dispose = function () {
         delete Session.keys['master.search.placeholder'];
         return self;
-    }
+    };
 }

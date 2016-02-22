@@ -44,7 +44,10 @@ Schemas.universities = new SimpleSchema({
 
 Universities.attachSchema(Schemas.universities)
 Universities.attachSchema(
-    new UpdateHistory(Universities, ['name', 'lead', 'aliases']).toSchema());
+    new UpdateHistory({
+        collection: Universities,
+        fields: ['name', 'lead', 'aliases']
+    }).toSchema());
 
 
 UniversitiesIndex = new EasySearch.Index({

@@ -25,7 +25,9 @@ Template.Sign.events({
 
         Accounts.createUser(
             {email: email, password: password},
-            new ResponseDisplayer().asRequestCallback);
+            new ResponseDisplayer({
+                toastOnSuccess: false
+            }).process);
     },
     'submit .form-sign-logging': function (event) {
         event.preventDefault()
@@ -34,7 +36,9 @@ Template.Sign.events({
             password = event.target.password.value;
 
         Meteor.loginWithPassword(email, password,
-            new ResponseDisplayer().asRequestCallback);
+            new ResponseDisplayer({
+                toastOnSuccess: false
+            }).process);
     },
     'click .btn-signing-back': function (event) {
         event.preventDefault();

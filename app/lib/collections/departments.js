@@ -23,7 +23,10 @@ Schemas.departments = new SimpleSchema({
 
 Departments.attachSchema(Schemas.departments);
 Departments.attachSchema(
-    new UpdateHistory(Departments, ['name']).toSchema());
+    new UpdateHistory({
+        collection: Departments,
+        fields: ['name']
+    }).toSchema());
 
 
 DepartmentsIndex = new EasySearch.Index({

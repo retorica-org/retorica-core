@@ -11,31 +11,32 @@ Template.UniversityEdit.events({
     'submit .form-university-commit': function (event) {
         event.preventDefault()
 
+        // Find which changes were made.
+        var updates = new FormUpdatesHelper(
+            {model: this, fields: ['name', 'lead', 'aliases']})
+            .lookIn($('.form-university-edit')[0])
+            .lookIn({aliases: {value: Session.get('universities.edit.aliases')}})
+            .updates();
+
         // Commit info update.
-        var updates
-            = new FormUpdatesHelper(this, ['name', 'lead'])
-                .lookIn($('.form-university-edit')[0])
-                .updates()
-
-        // Commit changes in aliases.
-        updates.aliases = this.aliases;
-
-        Universities.update(
-            this._id,
-            { $set: updates },
-            new ResponseDisplayer().asRequestCallback);
+        if (updates)
+            Universities.update(
+                this._id,
+                { $set: updates },
+                new ResponseDisplayer().process);
 
         Session.set('universities.dashboard.editing', false)
     },
     'click .chip-alias': function (event) {
         event.preventDefault()
 
-        var alias = event.target.dataset.alias
+        var alias = event.target.dataset.alias,
+            aliases = Session.get('universities.edit.aliases');
 
-        var i = this.aliases.indexOf(alias)
+        var i = aliases.indexOf(alias);
         if (i > -1) {
-            this.aliases.splice(i, 1)
-            Session.set('universities.edit.aliases', this.aliases)
+            aliases.splice(i, 1);
+            Session.set('universities.edit.aliases', aliases);
         }
     },
     'keyup #text-add-aliases': function (event) {
@@ -44,8 +45,9 @@ Template.UniversityEdit.events({
         if (event.keyCode === 13
             && this.aliases.indexOf(event.target.value) == -1) {
             // Enter was pressed and alias doesn't exist.
-            this.aliases.push(event.target.value)
-            Session.set('universities.edit.aliases', this.aliases)
+            var aliases = Session.get('universities.edit.aliases');
+            aliases.push(event.target.value);
+            Session.set('universities.edit.aliases', aliases);
 
             event.target.value = ''
         }
@@ -73,7 +75,7 @@ Template.UniversityEdit.onCreated(function () {
     // Transforms null alias arrays into empty ones.
     this.data.aliases = this.data.aliases || [];
 
-    Session.set('universities.edit.aliases', this.data.aliases);
+    Session.set('universities.edit.aliases', this.data.aliases.slice(0));
 });
 
 Template.UniversityEdit.onRendered(function () {
