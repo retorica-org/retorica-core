@@ -1,0 +1,78 @@
+<template name="MasterLayout">
+    <nav>
+        <div class="nav-wrapper pink darken-3">
+            <div class="container">
+                <a class="brand-logo"
+                href="{{pathFor route='home'}}">Demosthenes</a>
+
+                <ul class="right hide-on-med-and-down">
+                    <li class="{{showIfUser}}">
+                        <a href="#" class="dropdown-button"
+                           data-activates="dropdown-account">{{username}}<i class="material-icons right">arrow_drop_down</i></a>
+                       <ul id="dropdown-account" class="dropdown-content">
+                           <li><a href="#">
+                               <i class="material-icons left">perm_identity</i>
+                               Profile</a></li>
+                           <li><a href="#" class="button-logout">
+                               <i class="material-icons left">power_settings_new</i>
+                               Logout</a></li>
+                       </ul>
+                    </li>
+                    <li><a href="#">
+                        <i class="material-icons left">help</i>
+                        Help</a></li>
+                </ul>
+
+                <a href="#" data-activates="slide-out-navbar"
+                   class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+            </div>
+        </div>
+    </nav>
+    <nav>
+        <div class="nav-wrapper pink darken-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12 m8 l6">
+                        <form class="search">
+                            <div class="input-field">
+                                <input id="text-search" name="search"
+                                       type="search" class="text-search"
+                                       required
+                                       placeholder="{{searchPlaceholder}}">
+                                <label for="text-search">
+                                    <i class="material-icons">search</i>
+                                </label>
+                                <i class="material-icons">close</i>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <ul id="slide-out-navbar" class="side-nav">
+        <li class="no-padding {{showIfUser}}">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-header waves-effect waves-teal">{{username}}</a>
+                <div class="collapsible-body">
+                    <ul>
+                        {{#if currentUser}}
+                        <li><a href="#"><i class="material-icons">perm_identity</i>Profile</a></li>
+                        <li><a href="#" class="button-logout"><i class="material-icons">power_settings_new</i>Logout</a></li>
+                        {{/if}}
+                    </ul>
+                </div>
+            </li>
+          </ul>
+        </li>
+
+        <li><a href="#">Help</a></li>
+    </ul>
+
+    {{> yield}}
+    {{> footer}}
+</template>

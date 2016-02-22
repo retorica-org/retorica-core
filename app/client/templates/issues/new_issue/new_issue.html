@@ -1,0 +1,29 @@
+<template name="NewIssue">
+    <ul class="collapsible collapsible-new-issue"
+        data-collapsible="accordion">
+        <li class="white">
+            <div class="collapsible-header">
+                <i class="material-icons left">forum</i>
+                Problems or suggestions?
+            </div>
+            <div class="collapsible-body collapsible-body-new-issue">
+                <form class="form-new-issue">
+                    <div class="input-field">
+                        <textarea id="textarea-issue-content"
+                                  class="materialize-textarea"
+                                  name="textareaIssueContent"
+                                  required></textarea>
+                        <label for="textarea-issue-content">Content</label>
+                    </div>
+
+                    <div class="right-align">
+                        <button type="submit"
+                                class="btn-flat waves-effect waves-teal">
+                            <i class="material-icons right">send</i>
+                                send</button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+</template>

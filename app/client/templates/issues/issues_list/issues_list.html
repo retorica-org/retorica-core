@@ -1,0 +1,52 @@
+<template name="IssuesList">
+    <div class="container">
+        <div class="section">
+            <h3>New Issues</h3>
+
+            <p class="{{#if openCount}}hide{{/if}}">
+                You haven't had any recently submitted issues.
+            </p>
+
+            <div class="row">
+                {{#each issue in openIssues}}
+                <div class="col s12 m6 l3">
+                    <div class="card teal">
+                        <div class="card-content white-text">
+                            <p>{{issue.content}}</p>
+                        </div>
+                        <div class="card-action right-align">
+                            <form class="form-archive-issue">
+                                <button type="submit" title="Archive this issue"
+                                        class="btn-flat waves-effect waves-light white-text">
+                                    archive
+                                </button>
+                                <input type="hidden" name="issueId" value="{{issue._id}}" class="hide">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Archived</h3>
+
+            <p class="{{#if archivedCount}}hide{{/if}}">
+                You haven't had any recently submitted issues.
+            </p>
+
+            <div class="row">
+                {{#each issue in archivedIssues}}
+                <div class="col s12 m6 l3">
+                    <div class="card teal">
+                        <div class="card-content white-text">
+                            <p>{{issue.content}}</p>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</template>

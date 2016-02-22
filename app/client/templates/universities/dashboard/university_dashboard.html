@@ -1,0 +1,172 @@
+<template name="UniversityDashboard">
+    <div class="container university-dashboard">
+        {{#if editing}}
+            {{> UniversityEdit}}
+        {{else}}
+            <h2>
+                {{name}}
+            </h2>
+
+            {{#if lead}}
+                <p class="flow-text">{{lead}}</p>
+            {{/if}}
+
+            {{#each alias in aliases}}
+            <div class="chip">{{alias}}</div>
+            {{/each}}
+
+            <div class="section">
+                <h4>Departments</h4>
+                {{#if not departments}}
+                    <span class="grey-text text-darken-2">
+                        None registered yet.
+                    </span>
+                {{/if}}
+
+                {{#if not departmentsSearchFound}}
+                <p class="flow-text">
+                    Sorry, we couldn't find your university.<br>
+                    Would you like to add it?
+                    Just make sure you typed the right
+                    name and press <strong>enter</strong>!
+                </p>
+                {{/if}}
+                <div class="row">
+                    {{#each d in departmentsSearch}}
+                        <div class="col s12 m6 l4">
+                            <div class="card-panel teal white-text">
+                                {{d.name}}
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            {{#if not enrollable}}
+            <div class="section">
+                <p class="grey-text text-darken-2">
+                    Unfortunatelly, this institution isn't currently
+                    accepting enrollments. You can ask a
+                    <a href="#">representative</a> to
+                    change that.
+                </p>
+            </div>
+            {{else}}
+            <div class="section">
+                <h4>
+                    Do you belong to this institution?
+                </h4>
+                <p class="grey-text text-darken-2">
+                    Use one of the following options to confirm your identity
+                </p>
+
+                <div class="row">
+                    {{#if acceptEmailFromDomains}}
+                    <div class="col s12 l3">
+                        <h5 class="light-green-text text-lighten-2"
+                        >Verify Using a Institutional Email</h5>
+                        <p class="grey-text text-darken-2">
+                            If you have an email ending in one of the
+                            following domains: {{acceptEmailFromDomains}},
+                            type it bellow:
+                        </p>
+                        <form class="form-confirm-enrollment-through-email">
+                            <div class="input-field">
+                                <input id="text-confirm-enrollment"
+                                       type="text" class="validate">
+                                <label for="text-confirm-enrollment">
+                                    Institutional email</label>
+                            </div>
+                        </form>
+                    </div>
+                    {{/if}}
+                    <div class="col s12 l3">
+                        <h5 class="flow-text"
+                        >Upload your Enrollment Document</h5>
+                        <p class="grey-text text-darken-2">
+                            If you have a document that confirms you are
+                            enrolled in this institution, upload it here!
+                        </p>
+                        <p>
+                            <a class="waves-effect waves-light btn">
+                                <i class="material-icons left">assignment</i>
+                                upload</a>
+                        </p>
+                    </div>
+                    {{#if representatives}}
+                    <div class="col s12 l3">
+                        <h5 class="light-green-text text-lighten-2"
+                        >Ask to Join</h5>
+                        <p class="grey-text text-darken-2">
+                            A representative of this institution will
+                            enter in contact with you regarding this request.
+                        </p>
+                        <p>
+                            <a class="waves-effect waves-light btn">
+                                <i class="material-icons left">supervisor_account</i>
+                                join</a>
+                        </p>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+            {{/if}}
+        {{/if}}
+    </div>
+
+    <div class="fixed-action-btn btn-university-more">
+        <a class="btn-floating waves-effect btn-large red lighten-1">
+            <i class="large mdi-navigation-menu"></i>
+        </a>
+        <ul>
+            <li>
+                <a href="#" class="btn-floating blue button-editing-mode"
+                   title="Edit {{name}}'s info">
+                    <i class="material-icons">mode_edit</i>
+                </a>
+            </li>
+            <li>
+                <a href="#modal-update-history" title="Update history"
+                   class="btn-floating amber modal-trigger">
+                   <i class="material-icons">insert_chart</i>
+               </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="modal-update-history" class="modal bottom-sheet">
+        <div class="modal-content">
+            <a href="#!"
+               class="modal-action modal-close right grey-text text-darken-2">
+                <i class="material-icons">close</i>
+            </a>
+
+            <h4>Update History</h4>
+            <p>These are the updates {{name}} had until now.</p>
+
+            <ul class="collection">
+                {{#each entry in _history}}
+                <li class="collection-item avatar">
+                    <i class="material-icons circle {{randomColor}}"
+                       alt="{{entry.author}}">user</i>
+                    <span class="title">
+                        {{entry.author}}
+                    </span>
+                    <p>
+                        <small title="Update made at {{entry.updatedAt}}">
+                            {{localDateTime entry.updatedAt}}
+                        </small><br>
+
+                        <blockquote>
+                            {{#each change in describeChanges entry}}
+                                <strong>{{change.field}}</strong>:
+                                {{change.value}}<br>
+                            {{/each}}
+                        </blockquote>
+                    </p>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,23 @@
+<template name="NotFound">
+    <div class="center-align bg-gray spaced-block">
+        <h1>
+            <i class="glyphicon glyphicon-thumbs-down"></i>
+            Not Found<br />
+            <small class="lead">Sorry! We can't find what you want.</small>
+        </h1>
+    </div><br /><br />
+
+    <div class="container">
+        <h4>You have two options:</h4>
+        <p>
+            <strong>1.</strong> Go back to the
+            {{#linkTo route='home'}}Home page{{/linkTo}}.
+        </p>
+        <p>
+            <strong>2.</strong> If you think this is a bug, please
+            <a href="#">fill in a report</a>.
+            It only take two minutes and it will help us to
+            <strong>improve</strong> our service!
+        </p>
+    </div>
+</template>

@@ -1,0 +1,72 @@
+<template name="Sign">
+    <div class="row sign">
+        {{#if not currentUser}}
+            <div class="col s12 m10 offset-m1 l4 offset-l4">
+                <h5 class="grey-text text-darken-2">
+                    {{#if email}}
+                        {{email}}
+                    {{else}}
+                        Who are you?
+                    {{/if}}
+                </h5>
+                <p class="grey-text text-darken-2 {{showOnRegistering}}">
+                    You are about to register yourself.
+                    Don't worry! We only ask for essencial
+                    information and we don't send spam.
+                </p>
+                <br />
+
+                <form name="formSignEmail"
+                      class="form-sign-email {{hideOnSigning}}">
+                    <div class="input-field">
+                        <input type="email" name="email" id="email"
+                               value="{{email}}" class="validate" required>
+                        <label for="email">Email</label>
+                    </div>
+
+                    <button type="submit" class="btn green ligthen-1">
+                        sign
+                    </button>
+                </form>
+
+                <form name="formSignLogging"
+                    class="form-sign-logging {{showOnLogging}}">
+                    <div class="input-field">
+                        <input type="password" name="password" id="password"
+                               class="validate">
+                        <label for="password">Password</label>
+                    </div>
+
+                    <a href="#"
+                        class="btn grey lighten-4 grey-text text-darken-2 btn-signing-back"
+                        >Back</a>
+                    <button type="submit"
+                        class="btn blue lighten-2 waves-effect waves-light">
+                        sign in</button>
+                </form>
+
+                <form name="formSignRegistering"
+                    class="form-sign-registering {{showOnRegistering}}">
+                    <div class="input-field">
+                        <input type="password" name="password" id="password"
+                               class="validate">
+                        <label for="password">Password</label>
+                    </div>
+
+                    <div class="input-field">
+                        <input type="password" name="confirmPassword"
+                               id="confirmPassword" class="validate">
+                        <label for="confirmPassword">Confirm password</label>
+                    </div>
+
+                    <a href="#"
+                        class="btn grey lighten-4 grey-text text-darken-2 btn-signing-back"
+                        >Back</a>
+                    <button type="submit"
+                        class="btn green lighten-1 waves-effect waves-light">
+                        sign up</button>
+                </form>
+            </div>
+        {{/if}}
+    </div>
+</template>
