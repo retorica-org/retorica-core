@@ -1,18 +1,11 @@
 <template name="UniversitiesList">
     <div class="universities-list container">
         {{#EasySearch.IfInputEmpty index=universitiesIndex}}
-            <p class="flow-text">
-                Hello, there!
-            </p>
-            <p class="flow-text">
-                In Retorica, we take your privacy very seriously.
+            <p class="flow-text universities-list-welcome">
+                Hello, there! Are you ready to start?<br />
 
-                To prevent intruders from accessing info that doesn't concern
-                them or disturbing other people's data, we need to know from
-                which institution do you belong.
-            </p>
-            <p class="flow-text">
-                Use the search above to locate or register your university.
+                Use the search box above to locate or register the university
+                to which you belong.
             </p>
         {{else}}
             <div class="row">

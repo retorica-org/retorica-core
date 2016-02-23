@@ -60,11 +60,44 @@ FormUpdatesHelper = function (options) {
     };
 };
 
-/// ResponseDisplayer
+/// OperationResponseToaster
 ///
 /// Helper for responses coming from calls such as
 /// Collection.insert() and Collection.update().
-ResponseDisplayer = function (options) {
+///
+/// Params:
+///
+///     toasting:
+///         Toast errors and success messages if true.
+///         Only displays console messages, otherwise.
+///
+///     toastOnSuccess:
+///         Toast success messages, and not only error ones.
+///         This is ignored when `toasting` is false.
+///
+///    error:
+///         Operation's result, or `undefined` if no errors.
+///
+///   successMessage (default='Done!'):
+///         Success message to be displayed.
+///
+/// Usage example:
+///
+/// Universities.insert(
+///     newUniversity,
+///     (errors, count) => new OperationResponseToaster({
+///         error:errors,
+///         successMessage: 'University created!'
+///     }).process()
+/// );
+///
+/// Departments.update(
+///     {_id: 1},
+///     {$set: {name: 'Computer Science'}},
+///     new OperationResponseToaster().process
+/// );
+///
+OperationResponseToaster = function (options) {
     var self = this;
 
     options = options || {};
@@ -131,10 +164,12 @@ SearchHelper = function (options) {
             newDoc.name = query;
 
             var _id = options.collection.insert(newDoc,
-                new ResponseDisplayer().process);
+                new OperationResponseToaster().process);
 
             event.target.search.value = '';
-            Router.go(options.redirectTo, {_id: _id});
+
+            if (options.redirectTo)
+                Router.go(options.redirectTo, {_id: _id});
         }
     };
 

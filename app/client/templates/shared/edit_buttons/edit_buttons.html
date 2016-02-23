@@ -1,0 +1,57 @@
+<template name="EditButtons">
+    <div class="fixed-action-btn btn-university-more">
+        <a class="btn-floating waves-effect btn-large red lighten-1">
+            <i class="large mdi-navigation-menu"></i>
+        </a>
+        <ul>
+            <li>
+                <a href="#" class="btn-floating blue button-editing-mode"
+                   title="Edit {{name}}'s info">
+                    <i class="material-icons">mode_edit</i>
+                </a>
+            </li>
+            <li>
+                <a href="#modal-update-history" title="Update history"
+                   class="btn-floating amber modal-trigger">
+                   <i class="material-icons">insert_chart</i>
+               </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="modal-update-history" class="modal bottom-sheet">
+        <div class="modal-content">
+            <a href="#!"
+               class="modal-action modal-close right grey-text text-darken-2">
+                <i class="material-icons">close</i>
+            </a>
+
+            <h4>Update History</h4>
+            <p>These are the updates {{name}} had until now.</p>
+
+            <ul class="collection">
+                {{#each entry in _history}}
+                <li class="collection-item avatar">
+                    <i class="material-icons circle {{randomColor}}"
+                       alt="{{entry.author}}">user</i>
+                    <span class="title">
+                        {{entry.author}}
+                    </span>
+                    <p>
+                        <small title="Update made at {{entry.updatedAt}}">
+                            {{localDateTime entry.updatedAt}}
+                        </small><br>
+
+                        <blockquote>
+                            {{#each change in describeChanges entry}}
+                                <strong>{{change.field}}</strong>:
+                                {{change.value}}<br>
+                            {{/each}}
+                        </blockquote>
+                    </p>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>

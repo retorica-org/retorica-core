@@ -1,34 +1,34 @@
 /*****************************************************************************/
-/* DepartmentDashboard: Event Handlers */
+/* CourseDashboard: Event Handlers */
 /*****************************************************************************/
-Template.DepartmentDashboard.events({
+Template.CourseDashboard.events({
     'click .button-editing-mode': function (event) {
         event.preventDefault();
 
         // Toogle editing mode.
-        Session.set('departments.dashboard.editing',
-                    !Session.get('departments.dashboard.editing'))
+        Session.set('courses.dashboard.editing',
+                    !Session.get('courses.dashboard.editing'))
     }
 });
 
 /*****************************************************************************/
-/* DepartmentDashboard: Helpers */
+/* CourseDashboard: Helpers */
 /*****************************************************************************/
-Template.DepartmentDashboard.helpers({
+Template.CourseDashboard.helpers({
     editing: function () {
-        return Session.get('departments.dashboard.editing');
+        return Session.get('courses.dashboard.editing');
     },
 });
 
 /*****************************************************************************/
-/* DepartmentDashboard: Lifecycle Hooks */
+/* CourseDashboard: Lifecycle Hooks */
 /*****************************************************************************/
-Template.DepartmentDashboard.onCreated(function () {
-    Session.set('departments.dashboard.editing', false);
+Template.CourseDashboard.onCreated(function () {
+    Session.set('courses.dashboard.editing', false);
 });
 
-Template.DepartmentDashboard.onRendered(function () {
+Template.CourseDashboard.onRendered(function () {
 });
 
-Template.DepartmentDashboard.onDestroyed(function () {
+Template.CourseDashboard.onDestroyed(function () {
 });

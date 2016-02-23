@@ -1,4 +1,4 @@
-<template name="UniversityEdit">
+<template name="CourseEdit">
     <div class="section">
         <h4>Update {{name}}'s info</h4>
 
@@ -10,27 +10,12 @@
             <a href="#">contribution guidelines</a> beforehand.
         </p>
 
-        <form name="formUniversityEdit" class="form-university-edit form-edit">
+        <form name="formCourseEdit" class="form-course-edit form-edit">
             <div class="input-field">
                 <input id="text-name" name="name" value="{{name}}"
                 type="text" class="validate" required
-                placeholder="John Hopkins University">
+                placeholder="Computer Science">
                 <label class="active" for="text-name">Name</label>
-            </div>
-            <div class="input-field">
-                <input id="text-lead" name="lead" value="{{lead}}"
-                type="text" class="validate"
-                placeholder="A proactive environment for great minds.">
-                <label class="active" for="text-lead">Lead</label>
-            </div>
-            <div class="switch">
-                <label>
-                    Locked
-                    <input name="enrollable" type="checkbox"
-                    disabled checked="{{enrollable}}">
-                    <span class="lever"></span>
-                    Enrollable
-                </label>
             </div>
         </form>
     </div>
@@ -40,7 +25,7 @@
         <p class="grey-text text-darken-1">
             Alternative names or aliases assumed by {{name}}.
         </p>
-        <form class="form-university-aliases">
+        <form class="form-course-aliases">
             <div class="row">
                 <div class="col s12 m6 l4">
                     <div class="input-field">
@@ -59,7 +44,7 @@
     </div>
     <br>
     <div class="right-align">
-        <form class="form-university-commit">
+        <form class="form-course-commit">
             <a href="#" class="btn button-editing-mode grey lighten-3 grey-text text-darken-2 waves-effect">back</a>
             <button type="submit" class="btn blue">commit</button>
         </form>
