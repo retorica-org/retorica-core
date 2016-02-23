@@ -33,7 +33,7 @@ Courses.attachSchema(
 
 CoursesIndex = new EasySearch.Index({
     collection: Courses,
-    fields: ['name'],
+    fields: ['name', 'aliases'],
     engine: new EasySearch.Minimongo()
 });
 
