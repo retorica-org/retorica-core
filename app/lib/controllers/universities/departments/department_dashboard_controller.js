@@ -1,6 +1,7 @@
 DepartmentDashboardController = RouteController.extend({
 
   subscriptions: function() {
+      this.subscribe('department.courses', this.params._id);
   },
   waitOn: function () {
       return this.subscribe('department', this.params._id);

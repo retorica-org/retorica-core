@@ -7,14 +7,19 @@ Departments = new Mongo.Collection('departments', {
 
 
 Schemas.departments = new SimpleSchema({
-    'name': {
+    name: {
         type: String
     },
-    'representatives': {
+    aliases: {
+        type: [String],
+        optional: true,
+        label: 'Aliases'
+    },
+    representatives: {
         type: [Meteor.users],
         optional: true
     },
-    'universityId': {
+    universityId: {
         type: String,
         regEx: SimpleSchema.RegEx.Id
     }
@@ -25,13 +30,13 @@ Departments.attachSchema(Schemas.departments);
 Departments.attachSchema(
     new UpdateHistory({
         collection: Departments,
-        fields: ['name']
+        fields: ['name', 'aliases']
     }).toSchema());
 
 
 DepartmentsIndex = new EasySearch.Index({
     collection: Departments,
-    fields: ['name'],
+    fields: ['name', 'aliases'],
     engine: new EasySearch.Minimongo()
 });
 

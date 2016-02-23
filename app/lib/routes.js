@@ -36,6 +36,14 @@ Router.route("/departments/:_id", {
 });
 
 
+Router.route("/courses/:_id", {
+    name:"courses.dashboard",
+    template:"CourseDashboard",
+    controller: 'CourseDashboardController',
+    where: 'client'
+});
+
+
 Router.route("/issues", {
     name:"issues",
     template:"IssuesList",

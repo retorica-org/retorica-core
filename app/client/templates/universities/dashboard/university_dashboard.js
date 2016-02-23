@@ -22,17 +22,6 @@ Template.UniversityDashboard.helpers({
         return this
             ._history[this._history.length -1]
             .updatedAt;
-    },
-    describeChanges: function (entry) {
-        var changes = [];
-
-        for (var field in entry) {
-            if (field != 'author' && field != 'updatedAt') {
-                changes.push({field: field, value: entry[field]});
-            }
-        }
-
-        return changes;
     }
 });
 
@@ -44,7 +33,6 @@ Template.UniversityDashboard.onCreated(function () {
 });
 
 Template.UniversityDashboard.onRendered(function () {
-    $('.modal-trigger').leanModal();
 });
 
 Template.UniversityDashboard.onDestroyed(function () {

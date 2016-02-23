@@ -1,42 +1,42 @@
 /*****************************************************************************/
-/* UniversityEdit: Event Handlers */
+/* DepartmentEdit: Event Handlers */
 /*****************************************************************************/
-Template.UniversityEdit.events({
-    'submit .form-university-edit': function (event) {
-        event.preventDefault()
+Template.DepartmentEdit.events({
+    'submit .form-department-edit': function (event) {
+        event.preventDefault();
     },
-    'submit .form-university-aliases': function (event) {
-        event.preventDefault()
+    'submit .form-department-aliases': function (event) {
+        event.preventDefault();
     },
-    'submit .form-university-commit': function (event) {
-        event.preventDefault()
+    'submit .form-department-commit': function (event) {
+        event.preventDefault();
 
         // Find which changes were made.
         var updates = new FormUpdatesHelper(
             {model: this, fields: ['name', 'lead', 'aliases']})
-            .lookIn($('.form-university-edit')[0])
-            .lookIn({aliases: {value: Session.get('universities.edit.aliases')}})
+            .lookIn($('.form-department-edit')[0])
+            .lookIn({aliases: {value: Session.get('departments.edit.aliases')}})
             .updates();
 
         // Commit info update.
         if (updates)
-            Universities.update(
+            Departments.update(
                 this._id,
                 { $set: updates },
                 new OperationResponseToaster().process);
 
-        Session.set('universities.dashboard.editing', false)
+        Session.set('departments.dashboard.editing', false);
     },
     'click .chip-alias': function (event) {
         event.preventDefault()
 
         var alias = event.target.dataset.alias,
-            aliases = Session.get('universities.edit.aliases');
+            aliases = Session.get('departments.edit.aliases');
 
         var i = aliases.indexOf(alias);
         if (i > -1) {
             aliases.splice(i, 1);
-            Session.set('universities.edit.aliases', aliases);
+            Session.set('departments.edit.aliases', aliases);
         }
     },
     'keyup #text-add-aliases': function (event) {
@@ -45,42 +45,42 @@ Template.UniversityEdit.events({
         if (event.keyCode === 13
             && this.aliases.indexOf(event.target.value) == -1) {
             // Enter was pressed and alias doesn't exist.
-            var aliases = Session.get('universities.edit.aliases');
+            var aliases = Session.get('departments.edit.aliases');
             aliases.push(event.target.value);
-            Session.set('universities.edit.aliases', aliases);
+            Session.set('departments.edit.aliases', aliases);
 
             event.target.value = ''
         }
     }
-})
+});
 
 /*****************************************************************************/
-/* UniversityEdit: Helpers */
+/* DepartmentEdit: Helpers */
 /*****************************************************************************/
-Template.UniversityEdit.helpers({
+Template.DepartmentEdit.helpers({
     updatedAt: function () {
         return this
             ._history[this._history.length -1]
             .updatedAt;
     },
     reactiveAliases: function () {
-        return Session.get('universities.edit.aliases');
+        return Session.get('departments.edit.aliases');
     }
 });
 
 /*****************************************************************************/
-/* UniversityEdit: Lifecycle Hooks */
+/* DepartmentEdit: Lifecycle Hooks */
 /*****************************************************************************/
-Template.UniversityEdit.onCreated(function () {
+Template.DepartmentEdit.onCreated(function () {
     // Transforms null alias arrays into empty ones.
     this.data.aliases = this.data.aliases || [];
 
-    Session.set('universities.edit.aliases', this.data.aliases.slice(0));
+    Session.set('departments.edit.aliases', this.data.aliases.slice(0));
 });
 
-Template.UniversityEdit.onRendered(function () {
+Template.DepartmentEdit.onRendered(function () {
 });
 
-Template.UniversityEdit.onDestroyed(function () {
-    delete Session.keys['universities.edit.aliases'];
+Template.DepartmentEdit.onDestroyed(function () {
+    delete Session.keys['departments.edit.aliases'];
 });

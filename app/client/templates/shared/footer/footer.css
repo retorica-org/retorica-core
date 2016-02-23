@@ -1,3 +1,7 @@
+html, body { height: 100%; }
+body > .main-wrapping { height: auto; min-height: 70%; }
+
 .footer {
-    margin-top:10%
+    clear: both;
+    position: relative;
 }

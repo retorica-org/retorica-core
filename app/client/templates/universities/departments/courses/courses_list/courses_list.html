@@ -1,0 +1,40 @@
+<template name="CoursesList">
+    <div class="section">
+        <h4>Courses</h4>
+
+        {{#EasySearch.IfNoResults index=coursesIndex}}
+            {{#EasySearch.IfInputEmpty index=coursesIndex}}
+                <p>
+                    No courses were found yet.
+                    You can create the first by typing
+                    its name into the search box above.
+                </p>
+            {{else}}
+                <p class="flow-text">
+                    Sorry, we couldn't find your course.<br>
+                    Would you like to add it?
+                    Just make sure you typed the right
+                    name and press <strong>enter</strong>!
+                </p>
+            {{/EasySearch.IfInputEmpty}}
+        {{/EasySearch.IfNoResults}}
+
+        <div class="row">
+            {{#EasySearch.Each index=coursesIndex}}
+                <div class="col s12 m6 l4">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">{{name}}</span>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{pathFor 'courses.dashboard' _id=_id}}"
+                            >More</a>
+                        </div>
+                    </div>
+                </div>
+            {{/EasySearch.Each}}
+        </div>
+
+        {{> EasySearch.LoadMore index=coursesIndex attributes=btnLoadMoreAttributes}}
+    </div>
+</template>

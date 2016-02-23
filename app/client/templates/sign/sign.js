@@ -25,7 +25,7 @@ Template.Sign.events({
 
         Accounts.createUser(
             {email: email, password: password},
-            new ResponseDisplayer({
+            new OperationResponseToaster({
                 toastOnSuccess: false
             }).process);
     },
@@ -36,7 +36,7 @@ Template.Sign.events({
             password = event.target.password.value;
 
         Meteor.loginWithPassword(email, password,
-            new ResponseDisplayer({
+            new OperationResponseToaster({
                 toastOnSuccess: false
             }).process);
     },
