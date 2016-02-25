@@ -102,9 +102,9 @@ OperationResponseToaster = function (options) {
 
     options = options || {};
 
-    if (!'toasting' in options)
+    if (!('toasting' in options))
         options.toasting = true;
-    if (!'toastOnSuccess' in options)
+    if (!('toastOnSuccess' in options))
         options.toastOnSuccess = true;
 
     self.hasErrors = function () {
@@ -126,6 +126,8 @@ OperationResponseToaster = function (options) {
 
         // Always write errors on console.
         if (options.error) console.log(options.error);
+
+        return self;
     };
 };
 
@@ -159,9 +161,16 @@ SearchHelper = function (options) {
 
         var exists = options.searchIndex.search(query).count();
 
-        if (options.createIfNotFound && query && !exists) {
+        if (options.createIfNotFound && !exists) {
             var newDoc = options.newDocument || {};
             newDoc.name = query;
+
+            if ('beforeInsert' in options) {
+                newDoc = options.beforeInsert(newDoc);
+
+                // beforeInsert's invalidated query variable. Abort insertion.
+                if (!newDoc) return;
+            }
 
             var _id = options.collection.insert(newDoc,
                 new OperationResponseToaster().process);
