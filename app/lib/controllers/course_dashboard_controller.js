@@ -1,6 +1,7 @@
 CourseDashboardController = RouteController.extend({
 
   subscriptions: function() {
+      this.subscribe('course.classes', this.params._id);
   },
 
   waitOn: function () {

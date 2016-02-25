@@ -9,17 +9,15 @@ Courses = new Mongo.Collection('courses', {
 Schemas.courses = new SimpleSchema({
     name: {
         type: String,
-        label: 'Name'
     },
     aliases: {
         type: [String],
         optional: true,
-        label: 'Aliases'
     },
     departmentId: {
         type: String,
-        regEx: SimpleSchema.RegEx.Id
-    }
+        regEx: SimpleSchema.RegEx.Id,
+    },
 });
 
 
@@ -27,14 +25,14 @@ Courses.attachSchema(Schemas.courses);
 Courses.attachSchema(
     new UpdateHistory({
         collection: Courses,
-        fields: ['name', 'aliases']
+        fields: ['name', 'aliases'],
     }).toSchema());
 
 
 CoursesIndex = new EasySearch.Index({
     collection: Courses,
     fields: ['name', 'aliases'],
-    engine: new EasySearch.Minimongo()
+    engine: new EasySearch.Minimongo(),
 });
 
 

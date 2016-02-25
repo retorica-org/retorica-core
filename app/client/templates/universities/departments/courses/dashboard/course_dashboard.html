@@ -8,14 +8,16 @@
                 {{department.name}}
             </p>
 
-            {{#if lead}}
-                <p class="flow-text">{{lead}}</p>
-            {{/if}}
-
             {{#each alias in aliases}}
                 <div class="chip">{{alias}}</div>
             {{/each}}
+
+            {{#if lead}}
+                <p class="flow-text">{{lead}}</p>
+            {{/if}}
         {{/if}}
+
+        {{> ClassesList}}
     </div>
 
     {{> EditButtons}}

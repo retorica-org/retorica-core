@@ -49,6 +49,13 @@ Meteor.publish('department.courses', function (departmentId) {
 });
 
 
+Meteor.publish('course.classes', function (courseId) {
+    if (!!this.userId) {
+        return Classes.find({courseId: courseId});
+    }
+});
+
+
 Meteor.publish('users.exists', function () {
     return Meteor.users.find({}, {fields: {_id: 1, emails: 1}});
 });
