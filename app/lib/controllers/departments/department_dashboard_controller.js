@@ -1,13 +1,13 @@
-HomeController = RouteController.extend({
+DepartmentDashboardController = RouteController.extend({
 
   subscriptions: function() {
-      this.subscribe('universities');
+      this.subscribe('department.professors', this.params._id);
   },
-
   waitOn: function () {
+      return this.subscribe('department', this.params._id);
   },
-
   data: function () {
+      return Departments.findOne({_id: this.params._id});
   },
 
   // You can provide any of the hook options

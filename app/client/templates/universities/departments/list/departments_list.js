@@ -8,6 +8,7 @@ Template.DepartmentsList.events({
 /* DepartmentsList: Helpers */
 /*****************************************************************************/
 Template.DepartmentsList.helpers({
+    artifact: 'department',
     departmentsIndex: () => DepartmentsIndex,
     btnLoadMoreAttributes: {class: 'btn'}
 });

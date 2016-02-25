@@ -35,6 +35,13 @@ Meteor.publish('issues', function() {
 });
 
 
+Meteor.publish('professor', function (professorId) {
+    if (!!Meteor.userId) {
+        return Professors.find({_id: professorId});
+    }
+});
+
+
 Meteor.publish('university.departments', function (universityId) {
     if (!!this.userId) {
         return Departments.find({universityId: universityId});
@@ -45,6 +52,13 @@ Meteor.publish('university.departments', function (universityId) {
 Meteor.publish('department.courses', function (departmentId) {
     if (!!this.userId) {
         return Courses.find({departmentId: departmentId});
+    }
+});
+
+
+Meteor.publish('department.professors', function (departmentId) {
+    if (!!this.userId) {
+        return Professors.find({departmentId: departmentId});
     }
 });
 

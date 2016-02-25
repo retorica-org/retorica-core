@@ -20,9 +20,7 @@ CourseDashboardController = RouteController.extend({
   onRerun: function () {
     this.next();
   },
-  onBeforeAction: function () {
-    this.next();
-  },
+  onBeforeAction: ControllerCommons.requireAuthentication,
 
   // The same thing as providing a function as the second parameter. You can
   // also provide a string action name here which will be looked up on a Controller

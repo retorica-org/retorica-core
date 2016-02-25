@@ -1,4 +1,9 @@
-Professors = new Mongo.Collection('professors');
+Professors = new Mongo.Collection('professors', {
+    transform: (doc) => {
+        doc.department = Departments.findOne({_id: doc.departmentId});
+        return doc;
+    }
+});
 
 
 Schemas.professors = new SimpleSchema({
@@ -8,6 +13,10 @@ Schemas.professors = new SimpleSchema({
     aliases: {
         type: [String],
         optional: true,
+    },
+    departmentId: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id,
     },
 });
 
@@ -29,11 +38,11 @@ ProfessorsIndex = new EasySearch.Index({
 if (Meteor.isServer) {
   Professors.allow({
     insert: function (userId, doc) {
-      return false;
+      return !!userId;
     },
 
     update: function (userId, doc, fieldNames, modifier) {
-      return false;
+      return !!userId;
     },
 
     remove: function (userId, doc) {

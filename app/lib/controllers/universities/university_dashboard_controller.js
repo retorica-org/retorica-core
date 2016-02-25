@@ -20,13 +20,7 @@ UniversityDashboardController = RouteController.extend({
   onRerun: function () {
     this.next();
   },
-  onBeforeAction: function () {
-      if (!Meteor.userId()) {
-          Router.go('sign');
-      } else {
-          this.next();
-      }
-  },
+  onBeforeAction: ControllerCommons.requireAuthentication,
 
   action: function () {
     this.render();

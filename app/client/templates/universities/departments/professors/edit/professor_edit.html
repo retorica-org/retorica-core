@@ -1,0 +1,52 @@
+<template name="ProfessorEdit">
+    <div class="section">
+        <h4>Update {{name}}'s info</h4>
+
+        <p class="grey-text text-darken-1">
+            Last update was made on
+            <span title="{{updatedAt}}">{{localDateTime updatedAt}}</span>.<br>
+            What to help? Complete or correct any info bellow!
+            Please check our <a href="#">privacy policy</a> and
+            <a href="#">contribution guidelines</a> beforehand.
+        </p>
+
+        <form name="formProfessorEdit" class="form-professor-edit form-edit">
+            <div class="input-field">
+                <input id="text-name" name="name" value="{{name}}"
+                type="text" class="validate" required
+                placeholder="Computer Science">
+                <label class="active" for="text-name">Name</label>
+            </div>
+        </form>
+    </div>
+
+    <div class="section">
+        <h4>Aliases</h4>
+        <p class="grey-text text-darken-1">
+            Alternative names or aliases assumed by {{name}}.
+        </p>
+        <form class="form-professor-aliases">
+            <div class="row">
+                <div class="col s12 m6 l4">
+                    <div class="input-field">
+                        <input id="text-add-aliases" name="add-aliases" type="text" class="validate">
+                        <label for="text-add-aliases">Add new alias...</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {{#each alias in reactiveAliases}}
+        <div class="chip">
+            {{alias}}
+            <i class="material-icons chip-alias" data-alias="{{alias}}">close</i>
+        </div>
+        {{/each}}
+    </div>
+    <br>
+    <div class="right-align">
+        <form class="form-professor-commit">
+            <a href="#" class="btn button-editing-mode grey lighten-3 grey-text text-darken-2 waves-effect">back</a>
+            <button type="submit" class="btn blue">commit</button>
+        </form>
+    </div>
+</template>

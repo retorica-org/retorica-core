@@ -1,0 +1,23 @@
+<template name="SearchNoneExists">
+    <p>
+        No {{artifact}} were registered yet.
+
+        {{#if creating}}
+            You can create the first by typing
+            its name into the search box above.
+        {{/if}}
+    </p>
+</template>
+
+<template name="SearchNotFound">
+    <p class="flow-text">
+        Sorry, we couldn't find your {{artifact}}.
+
+        {{#if creating}}
+            <br>
+            Would you like to add it?
+            Just make sure you typed the right
+            name and press <strong>enter</strong>!
+        {{/if}}
+    </p>
+</template>

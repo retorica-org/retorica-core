@@ -50,3 +50,11 @@ Router.route("/issues", {
     controller: 'IssuesListController',
     where: 'client'
 });
+
+
+Router.route("/professors/:_id", {
+    name:"professors.dashboard",
+    template:"ProfessorDashboard",
+    controller: 'ProfessorDashboardController',
+    where: 'client'
+});

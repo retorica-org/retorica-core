@@ -4,18 +4,9 @@
 
         {{#EasySearch.IfNoResults index=coursesIndex}}
             {{#EasySearch.IfInputEmpty index=coursesIndex}}
-                <p>
-                    No courses were found yet.
-                    You can create the first by typing
-                    its name into the search box above.
-                </p>
+                {{> SearchNoneExists artifact="course" creating=true}}
             {{else}}
-                <p class="flow-text">
-                    Sorry, we couldn't find your course.<br>
-                    Would you like to add it?
-                    Just make sure you typed the right
-                    name and press <strong>enter</strong>!
-                </p>
+                {{> SearchNotFound artifact="course" creating=true}}
             {{/EasySearch.IfInputEmpty}}
         {{/EasySearch.IfNoResults}}
 

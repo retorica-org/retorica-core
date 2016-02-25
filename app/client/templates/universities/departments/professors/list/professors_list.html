@@ -1,0 +1,33 @@
+<template name="ProfessorsList">
+    <div class="section">
+        <h4>Professors</h4>
+
+        {{#EasySearch.IfNoResults index=professorsIndex}}
+            {{#EasySearch.IfInputEmpty index=professorsIndex}}
+                {{> SearchNoneExists artifact="professor" creating=true}}
+            {{else}}
+                {{> SearchNotFound artifact="professor" creating=true}}
+            {{/EasySearch.IfInputEmpty}}
+        {{/EasySearch.IfNoResults}}
+
+        <div class="row">
+            {{#EasySearch.Each index=professorsIndex}}
+                <div class="col s12 m6 l4">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">{{name}}</span>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{pathFor 'professors.dashboard' _id=_id}}"
+                            >More</a>
+                            <a href="{{pathFor 'classes.review' _id=_id}}"
+                            >Review</a>
+                        </div>
+                    </div>
+                </div>
+            {{/EasySearch.Each}}
+        </div>
+
+        {{> EasySearch.LoadMore index=professorsIndex attributes=btnLoadMoreAttributes}}
+    </div>
+</template>

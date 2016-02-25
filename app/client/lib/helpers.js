@@ -5,6 +5,7 @@ Retorica = {
     colors: ['red lighten-2', 'blue lighten-2', 'green', 'orange lighten-2'],
 };
 
+
 /// FormUpdatesHelper
 ///
 /// Automatic tracking of updates made in forms.
@@ -59,6 +60,7 @@ FormUpdatesHelper = function (options) {
         return updates;
     };
 };
+
 
 /// OperationResponseToaster
 ///
@@ -131,6 +133,7 @@ OperationResponseToaster = function (options) {
     };
 };
 
+
 /// SearchHelper
 ///
 /// Helper for searching through the search input box located in
@@ -184,6 +187,7 @@ SearchHelper = function (options) {
 
     self.dispose = function () {
         delete Session.keys['master.search.placeholder'];
+        document.getElementById('text-search').value = '';
         return self;
     };
 }

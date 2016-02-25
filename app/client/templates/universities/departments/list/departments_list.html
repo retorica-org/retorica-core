@@ -4,18 +4,9 @@
 
         {{#EasySearch.IfNoResults index=departmentsIndex}}
             {{#EasySearch.IfInputEmpty index=departmentsIndex}}
-                <p>
-                    No departments were found yet.
-                    You can create the first by typing
-                    its name into the search box above.
-                </p>
+                {{> SearchNoneExists artifact="department" creating=true}}
             {{else}}
-                <p class="flow-text">
-                    Sorry, we couldn't find your department.<br>
-                    Would you like to add it?
-                    Just make sure you typed the right
-                    name and press <strong>enter</strong>!
-                </p>
+                {{> SearchNotFound artifact="department" creating=true}}
             {{/EasySearch.IfInputEmpty}}
         {{/EasySearch.IfNoResults}}
 

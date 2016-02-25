@@ -1,22 +1,16 @@
-<template name="DepartmentDashboard">
+<template name="ProfessorDashboard">
     <div class="department-dashboard container">
         {{#if editing}}
-            {{> DepartmentEdit}}
+            {{> ProfessorEdit}}
         {{else}}
             <h2>{{name}}</h2>
             <p class="grey-text text-darken-2 flow-text">
-                {{university.name}}
+                {{department.name}}
             </p>
 
             {{#each alias in aliases}}
                 <div class="chip">{{alias}}</div>
             {{/each}}
-
-            {{#if lead}}
-                <p class="flow-text">{{lead}}</p>
-            {{/if}}
-
-            {{> ProfessorsList}}
         {{/if}}
     </div>
 

@@ -1,13 +1,14 @@
-DepartmentDashboardController = RouteController.extend({
+ProfessorDashboardController = RouteController.extend({
 
   subscriptions: function() {
-      this.subscribe('department.courses', this.params._id);
   },
+
   waitOn: function () {
-      return this.subscribe('department', this.params._id);
+      return this.subscribe('professor', this.params._id);
   },
+
   data: function () {
-      return Departments.findOne({_id: this.params._id});
+      return Professors.findOne({_id: this.params._id});
   },
 
   // You can provide any of the hook options
@@ -18,9 +19,7 @@ DepartmentDashboardController = RouteController.extend({
   onRerun: function () {
     this.next();
   },
-  onBeforeAction: function () {
-    this.next();
-  },
+  onBeforeAction: ControllerCommons.requireAuthentication,
 
   action: function () {
     this.render();
