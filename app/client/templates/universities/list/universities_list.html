@@ -1,13 +1,21 @@
 <template name="UniversitiesList">
     <div class="universities-list container">
         {{#EasySearch.IfInputEmpty index=universitiesIndex}}
-            <p class="flow-text universities-list-welcome">
-                Hello, there! Are you ready to start?<br />
+            <div class="universities-list-welcome">
+                <p class="flow-text">
+                    Hello, there! Are you ready to start?<br />
 
-                Use the search box above to locate or register the university
-                to which you belong.
-            </p>
+                    Use the search box above to locate or register the university
+                    to which you belong.
+                </p>
+            </div>
         {{else}}
+            {{#EasySearch.IfNoResults index=universitiesIndex}}
+                <div class="universities-list-welcome">
+                    {{> SearchNotFound artifact="university" creating=true}}
+                </div>
+            {{/EasySearch.IfNoResults}}
+
             <div class="row">
                 {{#EasySearch.Each index=universitiesIndex}}
                 <div class="col s12 m6 l4">
@@ -32,15 +40,6 @@
             </div>
 
             {{> EasySearch.LoadMore index=universitiesIndex attributes=btnLoadMoreAttributes}}
-            {{#EasySearch.IfNoResults index=universitiesIndex}}
-            <p class="flow-text">
-                Sorry, we couldn't find your university.<br>
-                Would you like to add it?
-                Just make sure you typed the right
-                name and press <strong>enter</strong>!
-            </p>
-            {{/EasySearch.IfNoResults}}
-
         {{/EasySearch.IfInputEmpty}}
     </div>
 </template>
