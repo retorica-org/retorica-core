@@ -1,5 +1,3 @@
-
-
 Meteor.publish('universities', function () {
     if (!!this.userId) {
         return Universities.find();
@@ -38,6 +36,13 @@ Meteor.publish('issues', function() {
 Meteor.publish('professor', function (professorId) {
     if (!!Meteor.userId) {
         return Professors.find({_id: professorId});
+    }
+});
+
+
+Meteor.publish('professor.classes', function (professorId) {
+    if (!!this.userId) {
+        return Classes.find({professorId: professorId});
     }
 });
 

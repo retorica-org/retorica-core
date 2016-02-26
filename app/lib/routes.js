@@ -20,41 +20,57 @@ Router.route('/sign', {
 });
 
 
-Router.route("/universities/:_id", {
-    name:"universities.dashboard",
-    template:"UniversityDashboard",
-    controller: 'UniversityDashboardController',
-    where: 'client'
-});
-
-
-Router.route("/departments/:_id", {
-    name:"departments.dashboard",
-    template:"DepartmentDashboard",
-    controller: 'DepartmentDashboardController',
-    where: 'client'
-});
-
-
-Router.route("/courses/:_id", {
-    name:"courses.dashboard",
-    template:"CourseDashboard",
-    controller: 'CourseDashboardController',
-    where: 'client'
-});
-
-
-Router.route("/issues", {
-    name:"issues",
-    template:"IssuesList",
+Router.route('/issues', {
+    name: 'issues',
+    template: 'IssuesList',
     controller: 'IssuesListController',
     where: 'client'
 });
 
 
-Router.route("/professors/:_id", {
-    name:"professors.dashboard",
-    template:"ProfessorDashboard",
+Router.route('/universities/:_id', {
+    name: 'universities.dashboard',
+    template: 'UniversityDashboard',
+    controller: 'UniversityDashboardController',
+    where: 'client'
+});
+
+
+Router.route('/departments/:_id', {
+    name: 'departments.dashboard',
+    template: 'DepartmentDashboard',
+    controller: 'DepartmentDashboardController',
+    where: 'client'
+});
+
+
+Router.route('/courses/:_id', {
+    name: 'courses.dashboard',
+    template: 'CourseDashboard',
+    controller: 'CourseDashboardController',
+    where: 'client'
+});
+
+
+Router.route('/professors/:_id', {
+    name: 'professors.dashboard',
+    template: 'ProfessorDashboard',
     controller: 'ProfessorDashboardController',
+    where: 'client'
+});
+
+
+Router.route('/professors/:professorId/review', {
+    name: 'professors.review',
+    template: 'ReviewCreate',
+    controller: 'ReviewCreateController',
+    where: 'client'
+});
+
+
+Router.route('/classes/:classId/review', {
+    name: 'classes.review',
+    template: 'ReviewCreate',
+    controller: 'ReviewCreateController',
     where: 'client'
 });
