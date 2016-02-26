@@ -1,6 +1,7 @@
 ProfessorDashboardController = RouteController.extend({
 
   subscriptions: function() {
+      this.subscribe('professor.reviews', this.params._id);
   },
 
   waitOn: function () {

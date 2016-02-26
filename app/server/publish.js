@@ -42,6 +42,20 @@ Meteor.publish('professor', function (professorId) {
 });
 
 
+Meteor.publish('professor.reviews', function (professorId) {
+    if (!!Meteor.userId) {
+        return Reviews.find({professorId: professorId});
+    }
+});
+
+
+Meteor.publish('class.reviews', function (classId) {
+    if (!!Meteor.userId) {
+        return Reviews.find({classId: classId});
+    }
+});
+
+
 Meteor.publish('university.departments', function (universityId) {
     if (!!this.userId) {
         return Departments.find({universityId: universityId});
